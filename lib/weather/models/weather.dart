@@ -8,19 +8,35 @@ extension TemperatureUnitsX on TemperatureUnits {
 }
 
 class Weather {
+  final String cityName;
+  final double temperature;
+  final double minTemperature;
+  final double maxTemperature;
+  final String description;
+
   const Weather({
-    required this.condition,
-    required this.location,
+    required this.cityName,
     required this.temperature,
+    required this.minTemperature,
+    required this.maxTemperature,
+    required this.description,
   });
 
-  final WeatherCondition condition;
-  final String location;
-  final double temperature;
+  factory Weather.fromJson(Map<String, dynamic> json) {
+    return Weather(
+      cityName: json['name'] as String,
+      temperature: (json['main']['temp'] as num).toDouble(),
+      minTemperature: (json['main']['temp_min'] as num).toDouble(),
+      maxTemperature: (json['main']['temp_max'] as num).toDouble(),
+      description: (json['weather'][0]['description']) as String,
+    );
+  }
 
   static final empty = Weather(
-    condition: WeatherCondition.unknown,
+    cityName: '',
     temperature: 0,
-    location: '--',
+    minTemperature: 0,
+    maxTemperature: 0,
+    description: "unknown"
   );
 }
