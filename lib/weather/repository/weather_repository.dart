@@ -14,4 +14,6 @@ class WeatherRepository {
 
     return weather;
   }
+
+  void dispose() => _weatherApiProvider.close();
 }
