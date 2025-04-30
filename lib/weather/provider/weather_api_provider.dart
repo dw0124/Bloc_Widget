@@ -14,15 +14,16 @@ class WeatherApiProvider {
     final apiKey = dotenv.env['WEATHER_API_KEY'];
 
     final query = {
-      'q': 'seoul',
-      'lang': 'ko',
+      'lat': 36.5.toString(),
+      'lon': 127.0.toString(),
       'units': 'metric',
+      'lang': 'kr',
       'appid': apiKey,
     };
 
     final url = Uri.https(
         "api.openweathermap.org",
-        "/data/2.5/weather",
+        "/data/3.0/onecall",
         query
     );
 
