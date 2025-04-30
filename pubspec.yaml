@@ -40,6 +40,7 @@ dependencies:
   json_annotation: ^4.9.0
   http: ^1.3.0
   flutter_dotenv: ^5.2.1
+ㅑ  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
