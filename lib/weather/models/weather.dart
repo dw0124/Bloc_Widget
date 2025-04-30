@@ -17,15 +17,18 @@ class Weather {
   final List<DailyWeather> daily;
 
   factory Weather.fromJson(Map<String, dynamic> json) {
+
     final CurrentWeather current = CurrentWeather.fromJson(json['current']);
 
-    final List<Map<String, dynamic>> hourlyJson = json['hourly'];
-    final List<HourlyWeather> hourly = hourlyJson.map((item) =>
-        HourlyWeather.fromJson(item)).toList();
+    final hourlyJson = json['hourly'];
+    final List<HourlyWeather> hourly = (json['hourly'] as List)
+        .map((item) => HourlyWeather.fromJson(item as Map<String, dynamic>))
+        .toList();
 
-    final List<Map<String, dynamic>> dailyJson = json['daily'];
-    final List<DailyWeather> daily = dailyJson.map((item) =>
-        DailyWeather.fromJson(item)).toList();
+    final dailyJson = json['daily'];
+    final List<DailyWeather> daily = (json['daily'] as List)
+        .map((item) => DailyWeather.fromJson(item as Map<String, dynamic>))
+        .toList();
 
     return Weather(
         current: current,
