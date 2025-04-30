@@ -5,16 +5,27 @@ class CurrentWeather {
   final WeatherCondition weatherCondition;
 
   factory CurrentWeather.fromJson(Map<String, dynamic> json) {
-    final double temperature = json['temp'];
 
-    // 시간별 날씨 상태 - 맑음, 비, 구름 ...
-    final int weatherCode = json['weather'][0]['id'] as int;
-    WeatherCondition weatherCondition = WeatherConditionX.fromWeatherCode(weatherCode);
+    try {
+      final double temperature = json['temp'];
 
-    return CurrentWeather(
-      temperature: temperature,
-      weatherCondition: weatherCondition,
-    );
+      // 시간별 날씨 상태 - 맑음, 비, 구름 ...
+      final int weatherCode = json['weather'][0]['id'] as int;
+      WeatherCondition weatherCondition = WeatherConditionX.fromWeatherCode(
+          weatherCode);
+
+      return CurrentWeather(
+        temperature: temperature,
+        weatherCondition: weatherCondition,
+      );
+    } catch (e, stacktrace) {
+      // 에러 로그 출력
+      print('CurrentWeather.fromJson 에러: $e');
+      print(stacktrace);
+
+      return CurrentWeather.empty;
+    }
+
   }
 
   CurrentWeather({

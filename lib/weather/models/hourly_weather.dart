@@ -10,29 +10,39 @@ class HourlyWeather {
   final double pop;
 
   factory HourlyWeather.fromJson(Map<String, dynamic> json) {
-    // 시간 정보 - 1745982000
-    final int epochTime = json['dt'];
+    try {
+      // 시간 정보 - 1745982000
+      final int epochTime = json['dt'];
 
-    // 시간 표시 - 오후 1시, 오후 3시 ...
-    final DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(epochTime * 1000, isUtc: true).toLocal();
-    final String formattedTime = DateFormat('a h시', 'ko').format(dateTime);
+      // 시간 표시 - 오후 1시, 오후 3시 ...
+      final DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(
+          epochTime * 1000, isUtc: true).toLocal();
+      final String formattedTime = DateFormat('a h시', 'ko').format(dateTime);
 
-    // 시간별 온도
-    final double temperature = json['temp'];
+      // 시간별 온도
+      final double temperature = (json['temp'] as num).toDouble();
 
-    // 시간별 날씨 상태 - 맑음, 비, 구름 ...
-    final int weatherCode = json['weather'][0]['id'] as int;
-    WeatherCondition weatherCondition = WeatherConditionX.fromWeatherCode(weatherCode);
+      // 시간별 날씨 상태 - 맑음, 비, 구름 ...
+      final int weatherCode = json['weather'][0]['id'] as int;
+      WeatherCondition weatherCondition = WeatherConditionX.fromWeatherCode(
+          weatherCode);
 
-    final double pop = json['pop'];
+      final double pop = (json['pop'] as num).toDouble();
 
-    return HourlyWeather(
-      epochTime: epochTime,
-      dateTimeString: formattedTime,
-      temperature: temperature,
-      weatherCondition: weatherCondition,
-      pop: pop,
-    );
+      return HourlyWeather(
+        epochTime: epochTime,
+        dateTimeString: formattedTime,
+        temperature: temperature,
+        weatherCondition: weatherCondition,
+        pop: pop,
+      );
+    } catch (e, stacktrace) {
+      // 에러 로그 출력
+      print('HourlyWeather.fromJson 에러: $e');
+      print(stacktrace);
+
+      return HourlyWeather.empty;
+    }
   }
 
   HourlyWeather({
