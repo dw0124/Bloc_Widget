@@ -1,35 +1,8 @@
-enum WeatherCondition {
-  clear,
-  clouds,
-  rain,
-  snow,
-  thunderstorm,
-  drizzle,
-  atmosphere,
-  unknown,
-}
+import 'package:bloc_widget/weather/models/current_weather.dart';
+import 'package:bloc_widget/weather/models/daily_weather.dart';
+import 'package:bloc_widget/weather/models/hourly_weather.dart';
 
-extension WeatherConditionX on WeatherCondition {
-  static WeatherCondition fromWeatherCode(int code) {
-    if (code >= 200 && code < 300) {
-      return WeatherCondition.thunderstorm;
-    } else if (code >= 300 && code < 400) {
-      return WeatherCondition.drizzle;
-    } else if (code >= 500 && code < 600) {
-      return WeatherCondition.rain;
-    } else if (code >= 600 && code < 700) {
-      return WeatherCondition.snow;
-    } else if (code >= 700 && code < 800) {
-      return WeatherCondition.atmosphere;
-    } else if (code == 800) {
-      return WeatherCondition.clear;
-    } else if (code >= 801 && code < 900) {
-      return WeatherCondition.clouds;
-    } else {
-      return WeatherCondition.unknown;
-    }
-  }
-}
+import 'weather_condition.dart';
 
 enum TemperatureUnits { fahrenheit, celsius }
 
@@ -39,38 +12,49 @@ extension TemperatureUnitsX on TemperatureUnits {
 }
 
 class Weather {
-  final String cityName;
-  final double temperature;
-  final double minTemperature;
-  final double maxTemperature;
-  final WeatherCondition weatherCondition;
-
-  const Weather({
-    required this.cityName,
-    required this.temperature,
-    required this.minTemperature,
-    required this.maxTemperature,
-    required this.weatherCondition,
-  });
+  final CurrentWeather current;
+  final List<HourlyWeather> hourly;
+  final List<DailyWeather> daily;
 
   factory Weather.fromJson(Map<String, dynamic> json) {
-    final int weatherCode = json['weather'][0]['id'] as int;
-    WeatherCondition weatherCondition = WeatherConditionX.fromWeatherCode(weatherCode);
+    final CurrentWeather current = CurrentWeather.fromJson(json['current']);
+
+    final List<Map<String, dynamic>> hourlyJson = json['hourly'];
+    final List<HourlyWeather> hourly = hourlyJson.map((item) =>
+        HourlyWeather.fromJson(item)).toList();
+
+    final List<Map<String, dynamic>> dailyJson = json['daily'];
+    final List<DailyWeather> daily = dailyJson.map((item) =>
+        DailyWeather.fromJson(item)).toList();
 
     return Weather(
-      cityName: json['name'] as String,
-      temperature: (json['main']['temp'] as num).toDouble(),
-      minTemperature: (json['main']['temp_min'] as num).toDouble(),
-      maxTemperature: (json['main']['temp_max'] as num).toDouble(),
-      weatherCondition: weatherCondition,
+        current: current,
+        hourly: hourly,
+        daily: daily
     );
   }
 
+  Weather({
+    required this.current,
+    required this.hourly,
+    required this.daily
+  });
+
   static final empty = Weather(
-      cityName: '',
-      temperature: 0,
-      minTemperature: 0,
-      maxTemperature: 0,
-      weatherCondition: WeatherCondition.unknown
+      current: CurrentWeather.empty,
+      hourly: [
+        HourlyWeather.empty,
+        HourlyWeather.empty,
+        HourlyWeather.empty,
+        HourlyWeather.empty,
+        HourlyWeather.empty
+      ],
+      daily: [
+        DailyWeather.empty,
+        DailyWeather.empty,
+        DailyWeather.empty,
+        DailyWeather.empty,
+        DailyWeather.empty
+      ]
   );
 }
