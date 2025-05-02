@@ -1,7 +1,7 @@
 import 'weather_condition.dart';
 
 class CurrentWeather {
-  final double temperature;
+  final int temperature;
   final WeatherCondition weatherCondition;
 
   factory CurrentWeather.fromJson(Map<String, dynamic> json) {
@@ -15,7 +15,7 @@ class CurrentWeather {
           weatherCode);
 
       return CurrentWeather(
-        temperature: temperature,
+        temperature: temperature.round(),
         weatherCondition: weatherCondition,
       );
     } catch (e, stacktrace) {

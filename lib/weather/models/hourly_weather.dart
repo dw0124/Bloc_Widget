@@ -5,7 +5,7 @@ import 'weather_condition.dart';
 class HourlyWeather {
   final int epochTime;
   final String dateTimeString;
-  final double temperature;
+  final int temperature;
   final WeatherCondition weatherCondition;
   final double pop;
 
@@ -20,7 +20,7 @@ class HourlyWeather {
       final String formattedTime = DateFormat('a h시', 'ko').format(dateTime);
 
       // 시간별 온도
-      final double temperature = (json['temp'] as num).toDouble();
+      final int temperature = json['temp'].round();
 
       // 시간별 날씨 상태 - 맑음, 비, 구름 ...
       final int weatherCode = json['weather'][0]['id'] as int;
@@ -56,7 +56,7 @@ class HourlyWeather {
   static final empty = HourlyWeather(
     epochTime: 1745982000,
     dateTimeString: '오후 ?시',
-    temperature: 0.0,
+    temperature: 0,
     weatherCondition: WeatherCondition.unknown,
     pop: 0.0,
   );

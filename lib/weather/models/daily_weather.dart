@@ -5,8 +5,8 @@ import 'weather_condition.dart';
 class DailyWeather {
   final int epochTime;
   final String weekdayString;
-  final double maxTemperature;
-  final double minTemperature;
+  final int maxTemperature;
+  final int minTemperature;
   final WeatherCondition weatherCondition;
   final double pop;
 
@@ -22,8 +22,8 @@ class DailyWeather {
       final String formattedTime = DateFormat('a h시', 'ko').format(dateTime);
 
       // 시간별 온도
-      final double maxTemperature = (json['temp']['max'] as num).toDouble();
-      final double minTemperature = (json['temp']['min'] as num).toDouble();
+      final int maxTemperature = json['temp']['max'].round();
+      final int minTemperature = json['temp']['min'].round();
 
       // 시간별 날씨 상태 - 맑음, 비, 구름 ...
       final int weatherCode = json['weather'][0]['id'] as int;
@@ -61,8 +61,8 @@ class DailyWeather {
   static final empty = DailyWeather(
     epochTime: 1745982000,
     weekdayString: '목',
-    maxTemperature: 0.0,
-    minTemperature: 0.0,
+    maxTemperature: 0,
+    minTemperature: 0,
     weatherCondition: WeatherCondition.unknown,
     pop: 0.0,
   );
