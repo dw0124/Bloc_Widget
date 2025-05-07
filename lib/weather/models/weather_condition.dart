@@ -31,7 +31,15 @@ extension WeatherConditionX on WeatherCondition {
   }
 
   /// 날씨 이미지 경로
-  String get imageAsset {
+  String imageAsset({DateTime? dateTime, DateTime? sunrise, DateTime? sunset}) {
+    if(this == WeatherCondition.clear && dateTime != null && sunrise != null && sunset != null) {
+      if (dateTime.isAfter(sunset) || dateTime.isBefore(sunrise)) {
+        return 'assets/weather_icon/moon.fill.png';
+      } else {
+        return 'assets/weather_icon/clear.png';
+      }
+    }
+
     switch (this) {
       case WeatherCondition.clear:
         return 'assets/weather_icon/clear.png';
