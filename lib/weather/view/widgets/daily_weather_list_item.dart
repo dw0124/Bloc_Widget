@@ -30,7 +30,7 @@ class DailyWeatherListItem extends StatelessWidget {
           SizedBox(
               width: 64,
               height: 64,
-              child: Image.asset(dailyWeather.weatherCondition.imageAsset)
+              child: Image.asset(dailyWeather.weatherCondition.imageAsset())
           ),
           Text(
               dailyWeather.weatherCondition.label,
