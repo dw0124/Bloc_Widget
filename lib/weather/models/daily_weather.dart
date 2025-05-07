@@ -4,6 +4,7 @@ import 'weather_condition.dart';
 
 class DailyWeather {
   final int epochTime;
+  final String formattedTime;
   final String weekdayString;
   final int maxTemperature;
   final int minTemperature;
@@ -19,7 +20,10 @@ class DailyWeather {
       // 시간 표시 - 오후 1시, 오후 3시 ...
       final DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(
           epochTime * 1000, isUtc: true).toLocal();
-      final String formattedTime = DateFormat('a h시', 'ko').format(dateTime);
+      // 월/일 형태 (5/7)
+      final String formattedTime = DateFormat('M/d').format(dateTime);
+      // 요일 (월, 화, 수, ...)
+      final String weekday = DateFormat.E('ko').format(dateTime);
 
       // 시간별 온도
       final int maxTemperature = json['temp']['max'].round();
@@ -34,7 +38,8 @@ class DailyWeather {
 
       return DailyWeather(
         epochTime: epochTime,
-        weekdayString: formattedTime,
+        formattedTime: formattedTime,
+        weekdayString: weekday,
         maxTemperature: maxTemperature,
         minTemperature: minTemperature,
         weatherCondition: weatherCondition,
@@ -51,6 +56,7 @@ class DailyWeather {
 
   DailyWeather({
     required this.epochTime,
+    required this.formattedTime,
     required this.weekdayString,
     required this.maxTemperature,
     required this.minTemperature,
@@ -60,6 +66,7 @@ class DailyWeather {
 
   static final empty = DailyWeather(
     epochTime: 1745982000,
+    formattedTime: '5/7',
     weekdayString: '목',
     maxTemperature: 0,
     minTemperature: 0,
