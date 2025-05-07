@@ -24,7 +24,7 @@ class DailyWeatherListItem extends StatelessWidget {
                   dailyWeather.weekdayString,
                   style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              Text('data'),
+              Text(dailyWeather.formattedTime),
             ],
           ),
           SizedBox(
@@ -38,7 +38,7 @@ class DailyWeatherListItem extends StatelessWidget {
           ),
           Expanded(child: SizedBox()),
           Text(
-              '${dailyWeather.maxTemperature} / ${dailyWeather.minTemperature}',
+              '${dailyWeather.minTemperature} / ${dailyWeather.maxTemperature}',
               style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)
             ),
         ],
