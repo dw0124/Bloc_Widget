@@ -19,7 +19,11 @@ class HourlyWeatherListItem extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           Image.asset(
-            hourlyWeather.weatherCondition.imageAsset,
+            hourlyWeather.weatherCondition.imageAsset(
+              dateTime: hourlyWeather.epochTime,
+              sunrise: hourlyWeather.sunrise,
+              sunset: hourlyWeather.sunset
+            ),
             width: 32,
             height: 32,
           ),
