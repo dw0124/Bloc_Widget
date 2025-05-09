@@ -11,31 +11,34 @@ class HourlyWeatherListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 60,
-      child: Column(
-        spacing: 9,
-        children: [
-          Text(
-            hourlyWeather.dateTimeString,
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Image.asset(
-            hourlyWeather.weatherCondition.imageAsset(
-              dateTime: hourlyWeather.epochTime,
-              sunrise: hourlyWeather.sunrise,
-              sunset: hourlyWeather.sunset
+      child: DefaultTextStyle(
+        style: TextStyle(color: Colors.white),
+        child: Column(
+          spacing: 9,
+          children: [
+            Text(
+              hourlyWeather.dateTimeString,
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            width: 32,
-            height: 32,
-          ),
-          Text(
-            '${hourlyWeather.temperature}°',
-            style:
-              TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
+            Image.asset(
+              hourlyWeather.weatherCondition.imageAsset(
+                dateTime: hourlyWeather.epochTime,
+                sunrise: hourlyWeather.sunrise,
+                sunset: hourlyWeather.sunset
               ),
-          ),
-        ],
+              width: 32,
+              height: 32,
+            ),
+            Text(
+              '${hourlyWeather.temperature}°',
+              style:
+                TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                ),
+            ),
+          ],
+        ),
       ),
     );
   }

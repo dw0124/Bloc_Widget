@@ -15,6 +15,7 @@ class WeatherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
@@ -28,32 +29,35 @@ class WeatherPage extends StatelessWidget {
                     builder: (context, currentWeather) {
                       return Column(
                         children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                '${currentWeather.temperature.toString()}°',
-                                style: TextStyle(fontSize: 64.0, fontWeight: FontWeight.w300),
-                              ),
-                              Transform.translate(
-                                offset: Offset(0, -20),
-                                child: Text(
-                                  currentWeather.weatherCondition.label,
-                                  style: TextStyle(fontSize: 24.0),
-                                )
-                              ),
-                              Transform.translate(
-                                offset: Offset(0, -20),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text('최고: ${context.read<WeatherCubit>().state.weather.daily[0].minTemperature}°'),
-                                    Text('최저: ${context.read<WeatherCubit>().state.weather.daily[0].maxTemperature}°'),
-                                  ],
+                          DefaultTextStyle(
+                            style: TextStyle(color: Colors.white),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '${currentWeather.temperature.toString()}°',
+                                  style: TextStyle(fontSize: 64.0, fontWeight: FontWeight.w300),
                                 ),
-                              ),
-                            ],
+                                Transform.translate(
+                                  offset: Offset(0, -5),
+                                  child: Text(
+                                    currentWeather.weatherCondition.label,
+                                    style: TextStyle(fontSize: 24.0),
+                                  )
+                                ),
+                                Transform.translate(
+                                  offset: Offset(0, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text('최고: ${context.read<WeatherCubit>().state.weather.daily[0].minTemperature}°'),
+                                      Text('최저: ${context.read<WeatherCubit>().state.weather.daily[0].maxTemperature}°'),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       );
@@ -66,7 +70,7 @@ class WeatherPage extends StatelessWidget {
                   alignment: Alignment.center,
                   height: 114,
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: Colors.black.withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: BlocSelector<WeatherCubit, WeatherState, List<HourlyWeather>>(
@@ -91,7 +95,7 @@ class WeatherPage extends StatelessWidget {
 
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: Colors.black.withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: BlocSelector<WeatherCubit, WeatherState, List<DailyWeather>>(
