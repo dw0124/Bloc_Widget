@@ -20,15 +20,30 @@ class HourlyWeatherListItem extends StatelessWidget {
               hourlyWeather.dateTimeString,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Image.asset(
-              hourlyWeather.weatherCondition.imageAsset(
-                dateTime: hourlyWeather.epochTime,
-                sunrise: hourlyWeather.sunrise,
-                sunset: hourlyWeather.sunset
+
+            Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    hourlyWeather.weatherCondition.imageAsset(
+                        dateTime: hourlyWeather.epochTime,
+                        sunrise: hourlyWeather.sunrise,
+                        sunset: hourlyWeather.sunset
+                    ),
+                    width: 32,
+                    height: 32,
+                  ),
+                  hourlyWeather.weatherCondition == WeatherCondition.rain ?
+                  Text(
+                    '${(hourlyWeather.pop * 100).toInt()}%',
+                    style: TextStyle(fontSize: 12),
+                  )
+                      : SizedBox(width: 0)
+                ],
               ),
-              width: 32,
-              height: 32,
             ),
+            Expanded(child: SizedBox()),
             Text(
               '${hourlyWeather.temperature}°',
               style:
