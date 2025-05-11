@@ -6,6 +6,8 @@ class DailyWeather {
   final int epochTime;
   final String formattedTime;
   final String weekdayString;
+  final DateTime sunrise;
+  final DateTime sunset;
   final int maxTemperature;
   final int minTemperature;
   final WeatherCondition weatherCondition;
@@ -25,6 +27,9 @@ class DailyWeather {
       // 요일 (월, 화, 수, ...)
       final String weekday = DateFormat.E('ko').format(dateTime);
 
+      final DateTime sunrise = DateTime.fromMillisecondsSinceEpoch(json['sunrise'] * 1000, isUtc: true).toLocal();
+      final DateTime sunset = DateTime.fromMillisecondsSinceEpoch(json['sunset'] * 1000, isUtc: true).toLocal();
+
       // 시간별 온도
       final int maxTemperature = json['temp']['max'].round();
       final int minTemperature = json['temp']['min'].round();
@@ -40,6 +45,8 @@ class DailyWeather {
         epochTime: epochTime,
         formattedTime: formattedTime,
         weekdayString: weekday,
+        sunrise: sunrise,
+        sunset: sunset,
         maxTemperature: maxTemperature,
         minTemperature: minTemperature,
         weatherCondition: weatherCondition,
@@ -58,6 +65,8 @@ class DailyWeather {
     required this.epochTime,
     required this.formattedTime,
     required this.weekdayString,
+    required this.sunrise,
+    required this.sunset,
     required this.maxTemperature,
     required this.minTemperature,
     required this.weatherCondition,
@@ -65,9 +74,11 @@ class DailyWeather {
   });
 
   static final empty = DailyWeather(
-    epochTime: 1745982000,
-    formattedTime: '5/7',
-    weekdayString: '목',
+    epochTime: 1746846000,
+    formattedTime: '5/11',
+    weekdayString: '일',
+    sunrise: DateTime.fromMillisecondsSinceEpoch(1746822585 * 1000, isUtc: true).toLocal(),
+    sunset: DateTime.fromMillisecondsSinceEpoch(1746872828 * 1000, isUtc: true).toLocal(),
     maxTemperature: 0,
     minTemperature: 0,
     weatherCondition: WeatherCondition.unknown,
