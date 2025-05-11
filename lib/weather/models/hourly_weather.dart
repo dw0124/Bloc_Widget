@@ -4,14 +4,13 @@ import 'weather_condition.dart';
 
 class HourlyWeather {
   final DateTime epochTime;
-  final DateTime sunrise;
-  final DateTime sunset;
+  final bool isNight;
   final String dateTimeString;
   final int temperature;
   final WeatherCondition weatherCondition;
   final double pop;
 
-  factory HourlyWeather.fromJson({required Map<String, dynamic> json, required sunrise, required sunset}) {
+  factory HourlyWeather.fromJson({required Map<String, dynamic> json, required isNight}) {
     try {
       // 시간 표시 - 오후 1시, 오후 3시 ...
       final DateTime epochTime = DateTime.fromMillisecondsSinceEpoch(
@@ -29,9 +28,8 @@ class HourlyWeather {
       final double pop = (json['pop'] as num).toDouble();
 
       return HourlyWeather(
-        sunrise: sunrise,
-        sunset: sunset,
         epochTime: epochTime,
+        isNight: isNight,
         dateTimeString: formattedTime,
         temperature: temperature,
         weatherCondition: weatherCondition,
@@ -48,8 +46,7 @@ class HourlyWeather {
 
   HourlyWeather({
     required this.epochTime,
-    required this.sunrise,
-    required this.sunset,
+    required this.isNight,
     required this.dateTimeString,
     required this.temperature,
     required this.weatherCondition,
@@ -58,8 +55,7 @@ class HourlyWeather {
 
   static final empty = HourlyWeather(
     epochTime: DateTime.fromMillisecondsSinceEpoch(1745982000 * 1000, isUtc: true).toLocal(),
-    sunrise: DateTime.fromMillisecondsSinceEpoch(1746563555 * 1000, isUtc: true).toLocal(),
-    sunset: DateTime.fromMillisecondsSinceEpoch(1746613471 * 1000, isUtc: true).toLocal(),
+    isNight: false,
     dateTimeString: '오후 ?시',
     temperature: 0,
     weatherCondition: WeatherCondition.unknown,

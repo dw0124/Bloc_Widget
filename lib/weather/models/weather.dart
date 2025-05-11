@@ -23,15 +23,43 @@ class Weather {
     final sunrise = current.sunrise;
     final sunset = current.sunset;
 
-    final hourlyJson = json['hourly'];
-    final List<HourlyWeather> hourly = (json['hourly'] as List)
-        .map((item) => HourlyWeather.fromJson(json: item as Map<String, dynamic>, sunrise: sunrise, sunset: sunset))
-        .toList();
-
     final dailyJson = json['daily'];
     final List<DailyWeather> daily = (json['daily'] as List)
         .map((item) => DailyWeather.fromJson(item as Map<String, dynamic>))
         .toList();
+
+    final hourlyJson = json['hourly'];
+    final List<HourlyWeather> hourly = (hourlyJson as List)
+        .take(24) // 앞 24개만 유지
+        .map((item) {
+      final hourlyDt = DateTime.fromMillisecondsSinceEpoch(item['dt'] * 1000);
+
+      final sunrise = daily[0].sunrise;
+      final sunset = daily[0].sunset;
+      final sunriseNext = daily[1].sunrise;
+      final sunsetNext = daily[1].sunset;
+
+      bool isNight = false;
+
+      if (hourlyDt.isBefore(sunrise)) {
+        isNight = true;
+      } else if (hourlyDt.isAfter(sunrise) && hourlyDt.isBefore(sunset)) {
+        isNight = false;
+      } else if (hourlyDt.isAfter(sunset) && hourlyDt.isBefore(sunriseNext)) {
+        isNight = true;
+      } else
+      if (hourlyDt.isAfter(sunriseNext) && hourlyDt.isBefore(sunsetNext)) {
+        isNight = false;
+      } else {
+        isNight = true;
+      }
+
+      return HourlyWeather.fromJson(
+        json: item as Map<String, dynamic>,
+        isNight: isNight,
+      );
+    }).toList();
+
 
     return Weather(
         current: current,

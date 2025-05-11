@@ -27,9 +27,7 @@ class HourlyWeatherListItem extends StatelessWidget {
                 children: [
                   Image.asset(
                     hourlyWeather.weatherCondition.imageAsset(
-                        dateTime: hourlyWeather.epochTime,
-                        sunrise: hourlyWeather.sunrise,
-                        sunset: hourlyWeather.sunset
+                      isNight: hourlyWeather.isNight
                     ),
                     width: 32,
                     height: 32,
