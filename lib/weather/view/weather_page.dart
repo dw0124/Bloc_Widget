@@ -15,7 +15,14 @@ class WeatherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: switch(context.watch<WeatherCubit>().state.weather.current.weatherCondition) {
+        WeatherCondition.clear => const Color(0xFF3EACFA),
+        WeatherCondition.clouds => const Color(0xFF899499),
+        WeatherCondition.atmosphere => const Color(0xFF899499),
+        WeatherCondition.rain => const Color(0xFF4FC3F7),
+        WeatherCondition.thunderstorm => const Color(0xFF616161),
+        _ => const Color(0xFF90CAF9),
+      },
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
