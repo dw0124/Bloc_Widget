@@ -20,9 +20,6 @@ class Weather {
 
     final CurrentWeather current = CurrentWeather.fromJson(json['current']);
 
-    final sunrise = current.sunrise;
-    final sunset = current.sunset;
-
     final dailyJson = json['daily'];
     final List<DailyWeather> daily = (json['daily'] as List)
         .map((item) => DailyWeather.fromJson(item as Map<String, dynamic>))
