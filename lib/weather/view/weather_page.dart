@@ -16,7 +16,10 @@ class WeatherPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: switch(context.watch<WeatherCubit>().state.weather.current.weatherCondition) {
-        WeatherCondition.clear => const Color(0xFF3EACFA),
+        WeatherCondition.clear =>
+        context.read<WeatherCubit>().state.weather.current.isNight
+            ? const Color(0xFF22375A)
+            : const Color(0xFF1475D1),
         WeatherCondition.clouds => const Color(0xFF899499),
         WeatherCondition.atmosphere => const Color(0xFF899499),
         WeatherCondition.rain => const Color(0xFF4FC3F7),
@@ -77,7 +80,7 @@ class WeatherPage extends StatelessWidget {
                   alignment: Alignment.center,
                   height: 114,
                   decoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: 0.05),
+                    color: Colors.white.withValues(alpha: 0.07),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: BlocSelector<WeatherCubit, WeatherState, List<HourlyWeather>>(
@@ -102,7 +105,7 @@ class WeatherPage extends StatelessWidget {
 
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: 0.05),
+                    color: Colors.white.withValues(alpha: 0.07),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: BlocSelector<WeatherCubit, WeatherState, List<DailyWeather>>(
