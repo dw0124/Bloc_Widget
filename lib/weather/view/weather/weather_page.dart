@@ -4,8 +4,9 @@ import 'package:bloc_widget/weather/models/current_weather.dart';
 import 'package:bloc_widget/weather/models/daily_weather.dart';
 import 'package:bloc_widget/weather/models/hourly_weather.dart';
 import 'package:bloc_widget/weather/models/weather_condition.dart';
-import 'package:bloc_widget/weather/view/widgets/daily_weather_list_item.dart';
-import 'package:bloc_widget/weather/view/widgets/hourly_weather_list_item.dart';
+import 'package:bloc_widget/weather/view/map/map_page.dart';
+import 'package:bloc_widget/weather/view/weather/widgets/daily_weather_list_item.dart';
+import 'package:bloc_widget/weather/view/weather/widgets/hourly_weather_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,6 +16,17 @@ class WeatherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: const Icon(Icons.map_outlined),
+          onPressed: () {
+            var page = MapPage();
+            var route = MaterialPageRoute(builder: (BuildContext context) => page);
+            Navigator.push(context, route);
+            },
+        ),
+      ),
       backgroundColor: switch(context.watch<WeatherCubit>().state.weather.current.weatherCondition) {
         WeatherCondition.clear =>
         context.read<WeatherCubit>().state.weather.current.isNight
