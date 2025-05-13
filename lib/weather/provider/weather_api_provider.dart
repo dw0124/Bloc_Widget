@@ -8,12 +8,17 @@ class WeatherApiProvider {
 
   final http.Client _httpClient;
 
-  Future<Map<String, dynamic>> fetchWeatherJson() async {
+  Future<Map<String, dynamic>> fetchWeatherJson({double? lng, double? lat}) async {
     final apiKey = dotenv.env['WEATHER_API_KEY'];
 
+    final longitude = (lng ?? 126.86459566919459).toString();
+    final latitude = (lat ?? 37.52623959815854).toString();
+
+    print('$longitude, $latitude');
+
     final query = {
-      'lat': 36.5.toString(),
-      'lon': 127.0.toString(),
+      'lat': latitude,
+      'lon': longitude,
       'units': 'metric',
       'lang': 'kr',
       'appid': apiKey,
