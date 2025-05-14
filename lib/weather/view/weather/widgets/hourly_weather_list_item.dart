@@ -10,11 +10,11 @@ class HourlyWeatherListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 60,
+      height: 64,
       child: DefaultTextStyle(
         style: TextStyle(color: Colors.white),
         child: Column(
-          spacing: 9,
+          //spacing: 9,
           children: [
             Text(
               hourlyWeather.dateTimeString,
@@ -22,6 +22,7 @@ class HourlyWeatherListItem extends StatelessWidget {
             ),
 
             Container(
+              height: 64,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -41,7 +42,6 @@ class HourlyWeatherListItem extends StatelessWidget {
                 ],
               ),
             ),
-            Expanded(child: SizedBox()),
             Text(
               '${hourlyWeather.temperature}°',
               style:

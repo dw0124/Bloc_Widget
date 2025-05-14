@@ -90,7 +90,7 @@ class WeatherPage extends StatelessWidget {
 
                 Container(
                   alignment: Alignment.center,
-                  height: 114,
+                  height: 120,
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.07),
                     borderRadius: BorderRadius.circular(12),
