@@ -13,7 +13,7 @@ class LocationAddress {
     required this.longitude,
   });
 
-  factory LocationAddress.fromJson(Map<String, dynamic> json) {
+  factory LocationAddress.fromJson(Map<String, dynamic> json, double lat, double lng) {
     try {
       final result = json['results'][0];
       final region = result['region'];
@@ -23,8 +23,8 @@ class LocationAddress {
       final area2 = region['area2']['name'];
       final area3 = region['area3']['name'];
 
-      final latitude = area3Coords['y'].toDouble();
-      final longitude = area3Coords['x'].toDouble();
+      final latitude = lat;
+      final longitude = lng;
 
       return LocationAddress(
         area1: area1,
