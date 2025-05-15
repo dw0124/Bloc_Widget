@@ -20,10 +20,29 @@ class WeatherPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         leading: IconButton(
           icon: const Icon(Icons.map_outlined),
-          onPressed: () {
-            var page = MapPage();
-            var route = MaterialPageRoute(builder: (BuildContext context) => page);
-            Navigator.push(context, route);
+          onPressed: () async {
+              final weather = context.read<WeatherCubit>().state.weather;
+              final locationAddress = context.read<WeatherCubit>().state.locationAddress;
+
+              final result = await Navigator.push(
+                context, MaterialPageRoute(
+                  builder: (context) =>
+                      RepositoryProvider(
+                        create: (context) => MapRepository(),
+                        dispose: (repository) => repository.dispose(),
+                        child: MapPage(
+                            weather: weather,
+                            locationAddress: locationAddress,
+                        ),
+                      ),
+                ),
+              );
+
+              if (result != null && context.mounted) {
+                final (weather, locationAddress) = result as (Weather, LocationAddress);
+
+                context.read<WeatherCubit>().updateWeather(weather, locationAddress);
+              }
             },
         ),
       ),
