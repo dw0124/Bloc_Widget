@@ -33,4 +33,13 @@ class WeatherCubit extends Cubit<WeatherState> {
       );
     }
   }
+
+  void updateWeather(Weather weather, LocationAddress locationAddress) {
+    emit(
+        state.copyWith(
+            weather: weather,
+            locationAddress: locationAddress
+        )
+    );
+  }
 }
