@@ -1,4 +1,5 @@
 import 'package:bloc_widget/weather/bloc/weather_cubit.dart';
+import 'package:bloc_widget/weather/repository/map_repository.dart';
 import 'package:bloc_widget/weather/repository/weather_repository.dart';
 import 'package:bloc_widget/weather/view/weather/weather_page.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class WeatherApp extends StatelessWidget {
         create: (_) => WeatherRepository(),
         dispose: (repository) => repository.dispose(),
         child: BlocProvider(
-          create: (context) => WeatherCubit(context.read<WeatherRepository>()),
+          create: (context) => WeatherCubit(context.read<WeatherRepository>(), 126.978388, 37.56661),
           child: WeatherPage(),
         ),
       ),

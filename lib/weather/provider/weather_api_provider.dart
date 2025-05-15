@@ -11,8 +11,8 @@ class WeatherApiProvider {
   Future<Map<String, dynamic>> fetchWeatherJson({double? lng, double? lat}) async {
     final apiKey = dotenv.env['WEATHER_API_KEY'];
 
-    final longitude = (lng ?? 126.86459566919459).toString();
-    final latitude = (lat ?? 37.52623959815854).toString();
+    final longitude = (lng ?? 126.978388).toString();
+    final latitude = (lat ?? 37.56661).toString();
 
     print('$longitude, $latitude');
 
