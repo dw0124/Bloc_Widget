@@ -63,8 +63,19 @@ class WeatherPage extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 30,),
-
+                BlocBuilder<WeatherCubit, WeatherState>(
+                    builder: (context, state) {
+                      return
+                        DefaultTextStyle(
+                            style: TextStyle(color: Colors.white),
+                            child: Column(
+                              children: [
+                                Text(state.locationAddress.area3),
+                              ],
+                            )
+                        );
+                    }
+                ),
                 BlocSelector<WeatherCubit, WeatherState, CurrentWeather>(
                     selector: (state) => state.weather.current,
                     builder: (context, currentWeather) {
