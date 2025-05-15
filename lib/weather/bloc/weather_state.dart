@@ -1,3 +1,4 @@
+import 'package:bloc_widget/weather/models/location_address.dart';
 import 'package:equatable/equatable.dart';
 import 'package:bloc_widget/weather/models/weather.dart';
 
@@ -12,19 +13,23 @@ extension WeatherStatusX on WeatherStatus {
 
 class WeatherState extends Equatable {
 
+  final LocationAddress locationAddress;
   final Weather weather;
   final WeatherStatus weatherStatus;
 
   WeatherState({
     this.weatherStatus = WeatherStatus.initial,
+    LocationAddress? locationAddress,
     Weather? weather,
-  }) : weather = weather ?? Weather.empty;
+  }) : weather = weather ?? Weather.empty,
+       locationAddress = locationAddress ?? LocationAddress.empty;
 
   // 기존 인스턴스의 값을 유지하면서, 특정 프로퍼티만 변경하여 새로운 객체를 생성
-  WeatherState copyWith({WeatherStatus? weatherStatus, Weather? weather}) {
+  WeatherState copyWith({WeatherStatus? weatherStatus, Weather? weather, LocationAddress? locationAddress}) {
     return WeatherState(
       weatherStatus: weatherStatus ?? this.weatherStatus,
       weather: weather ?? this.weather,
+      locationAddress: locationAddress ?? this.locationAddress,
     );
   }
 
