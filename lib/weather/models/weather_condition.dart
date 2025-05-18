@@ -30,6 +30,27 @@ extension WeatherConditionX on WeatherCondition {
     }
   }
 
+  int toWeatherCode() {
+    switch (this) {
+      case WeatherCondition.thunderstorm:
+        return 200; // 대표 코드
+      case WeatherCondition.drizzle:
+        return 300;
+      case WeatherCondition.rain:
+        return 500;
+      case WeatherCondition.snow:
+        return 600;
+      case WeatherCondition.atmosphere:
+        return 701;
+      case WeatherCondition.clear:
+        return 800;
+      case WeatherCondition.clouds:
+        return 801;
+      case WeatherCondition.unknown:
+        return 0;
+    }
+  }
+
   /// 날씨 이미지 경로
   String imageAsset({bool isNight = false}) {
     if(this == WeatherCondition.clear && isNight == true) {
