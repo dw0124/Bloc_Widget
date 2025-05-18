@@ -33,6 +33,24 @@ class WeatherState extends Equatable {
     );
   }
 
+  factory WeatherState.fromJson(Map<String, dynamic> json) {
+    final lat = json['lat'];
+    final lng = json['lng'];
+
+    return WeatherState(
+      locationAddress: LocationAddress.fromJson(json['locationAddress'], lat: lat, lng: lng),
+      weather: Weather.fromJson(json['weather']),
+      weatherStatus: WeatherStatus.success
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'locationAddress': locationAddress.toJson(),
+      'weather': weather.toJson()
+    };
+  }
+
   @override
   List<Object?> get props => [weather, weatherStatus];
 }

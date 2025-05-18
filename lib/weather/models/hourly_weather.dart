@@ -44,6 +44,20 @@ class HourlyWeather {
     }
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'dt': epochTime.toUtc().millisecondsSinceEpoch ~/ 1000,
+      'temp': temperature,
+      'weather': [
+        {
+          'id': weatherCondition.toWeatherCode(),
+        }
+      ],
+      'pop': pop,
+    };
+  }
+
+
   HourlyWeather({
     required this.epochTime,
     required this.isNight,

@@ -61,6 +61,24 @@ class DailyWeather {
     }
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'dt': epochTime,
+      'sunrise': sunrise.toUtc().millisecondsSinceEpoch ~/ 1000,
+      'sunset': sunset.toUtc().millisecondsSinceEpoch ~/ 1000,
+      'temp': {
+        'max': maxTemperature,
+        'min': minTemperature,
+      },
+      'weather': [
+        {
+          'id': weatherCondition.toWeatherCode(),
+        }
+      ],
+      'pop': pop,
+    };
+  }
+
   DailyWeather({
     required this.epochTime,
     required this.formattedTime,

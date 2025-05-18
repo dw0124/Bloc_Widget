@@ -11,10 +11,18 @@ class CurrentWeather {
     try {
       final DateTime epochTime = DateTime.fromMillisecondsSinceEpoch(json['dt'] * 1000, isUtc: true).toLocal();
 
-      final DateTime sunrise = DateTime.fromMillisecondsSinceEpoch(json['sunrise'] * 1000, isUtc: true).toLocal();
-      final DateTime sunset = DateTime.fromMillisecondsSinceEpoch(json['sunset'] * 1000, isUtc: true).toLocal();
+      late final bool isNight;
 
-      final bool isNight = epochTime.isBefore(sunrise) || epochTime.isAfter(sunset);
+      if (json.containsKey('isNight')) {
+        isNight = json['isNight'] as bool;
+      } else {
+        final DateTime sunrise = DateTime.fromMillisecondsSinceEpoch(
+            json['sunrise'] * 1000, isUtc: true).toLocal();
+        final DateTime sunset = DateTime.fromMillisecondsSinceEpoch(
+            json['sunset'] * 1000, isUtc: true).toLocal();
+
+        isNight = epochTime.isBefore(sunrise) || epochTime.isAfter(sunset);
+      }
 
       final double temperature = json['temp'];
 
@@ -37,6 +45,19 @@ class CurrentWeather {
       return CurrentWeather.empty;
     }
 
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'dt': epochTime.toUtc().millisecondsSinceEpoch ~/ 1000,
+      'isNight': isNight,
+      'temp': temperature.toDouble(),
+      'weather': [
+        {
+          'id': weatherCondition.toWeatherCode()
+        }
+      ]
+    };
   }
 
   CurrentWeather({
