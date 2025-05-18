@@ -13,18 +13,21 @@ class LocationAddress {
     required this.longitude,
   });
 
-  factory LocationAddress.fromJson(Map<String, dynamic> json, double lat, double lng) {
+  factory LocationAddress.fromJson(Map<String, dynamic> json, {required double? lat, required double? lng}) {
     try {
       final result = json['results'][0];
       final region = result['region'];
-      final area3Coords = region['area3']['coords']['center'];
 
       final area1 = region['area1']['name'];
       final area2 = region['area2']['name'];
       final area3 = region['area3']['name'];
 
-      final latitude = lat;
-      final longitude = lng;
+      if ((lat != null && lng == null) || (lat == null && lng != null)) {
+        throw ArgumentError('lat과 lng는 함께 전달되어야 합니다.');
+      }
+
+      final latitude = lat ?? json['lat'];
+      final longitude = lng ?? json['lng'];
 
       return LocationAddress(
         area1: area1,
