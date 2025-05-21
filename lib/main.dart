@@ -1,7 +1,7 @@
 import 'package:bloc_widget/counter/counter.dart';
 import 'package:bloc_widget/timer/view/timer_app.dart';
 
-import 'package:bloc_widget/weather/view/weather/weather_app.dart';
+import 'package:bloc_widget/weather/weather_app.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
