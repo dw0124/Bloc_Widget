@@ -8,26 +8,10 @@ import 'package:bloc_widget/weather/repository/map_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MapCubit extends Cubit<MapState> {
-  MapCubit(this._mapRepository) : super(MapState()) {
-    _init();
-  }
+  MapCubit(this._mapRepository, Weather weather, LocationAddress locationAddress)
+      : super(MapState(weather: weather, locationAddress: locationAddress));
 
   final MapRepository _mapRepository;
-
-  Future<void> _init() async {
-    final loaded = await _loadSavedWeather();
-
-    if (loaded) {
-      final lng = state.locationAddress.longitude;
-      final lat = state.locationAddress.latitude;
-      fetchWeather(lng, lat); // 갱신
-    } else {
-      // 로컬에 아무것도 없을 때 -> 기본값
-      const defaultLat = 37.5665;
-      const defaultLng = 126.9780;
-      fetchWeather(defaultLng, defaultLat);
-    }
-  }
 
   Future<void> fetchWeather(double lng, double lat) async {
     // 로딩 중 상태로 변경
