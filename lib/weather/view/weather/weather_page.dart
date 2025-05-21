@@ -1,3 +1,4 @@
+import 'package:bloc_widget/weather/bloc/map_cubit.dart';
 import 'package:bloc_widget/weather/bloc/weather_cubit.dart';
 import 'package:bloc_widget/weather/bloc/weather_state.dart';
 import 'package:bloc_widget/weather/models/current_weather.dart';
@@ -33,9 +34,13 @@ class WeatherPage extends StatelessWidget {
                       RepositoryProvider(
                         create: (context) => MapRepository(),
                         dispose: (repository) => repository.dispose(),
-                        child: MapPage(
-                            weather: weather,
-                            locationAddress: locationAddress,
+                        child: BlocProvider<MapCubit>(
+                          create: (BuildContext context) => MapCubit(
+                            context.read<MapRepository>(),
+                            weather,
+                            locationAddress,
+                          ),
+                          child: MapPage(),
                         ),
                       ),
                 ),
@@ -54,9 +59,9 @@ class WeatherPage extends StatelessWidget {
         context.read<WeatherCubit>().state.weather.current.isNight
             ? const Color(0xFF22375A)
             : const Color(0xFF1475D1),
-        WeatherCondition.clouds => const Color(0xFF899499),
+        WeatherCondition.clouds => const Color(0xFF56595E),
         WeatherCondition.atmosphere => const Color(0xFF899499),
-        WeatherCondition.rain => const Color(0xFF4FC3F7),
+        WeatherCondition.rain => const Color(0xE0105BA5),
         WeatherCondition.thunderstorm => const Color(0xFF616161),
         _ => const Color(0xFF90CAF9),
       },
