@@ -13,11 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 
 class MapPage extends StatefulWidget {
-
-  final Weather weather;
-  final LocationAddress locationAddress;
-
-  const MapPage({super.key, required this.weather, required this.locationAddress});
+  const MapPage({super.key});
 
   @override
   State<MapPage> createState() => _MapPageState();
@@ -31,9 +27,6 @@ class _MapPageState extends State<MapPage> {
   @override
   void initState() {
     super.initState();
-
-    _weather = widget.weather;
-    _locationAddress = widget.locationAddress;
   }
 
   @override
