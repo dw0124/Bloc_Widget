@@ -1,11 +1,5 @@
 import 'package:bloc_widget/weather/bloc/map_cubit.dart';
 import 'package:bloc_widget/weather/bloc/map_state.dart';
-import 'package:bloc_widget/weather/bloc/weather_cubit.dart';
-import 'package:bloc_widget/weather/bloc/weather_state.dart';
-import 'package:bloc_widget/weather/models/hourly_weather.dart';
-import 'package:bloc_widget/weather/models/location_address.dart';
-import 'package:bloc_widget/weather/models/weather.dart';
-import 'package:bloc_widget/weather/repository/map_repository.dart';
 import 'package:bloc_widget/weather/view/map/widgets/location_weather_marker.dart';
 import 'package:bloc_widget/weather/view/weather/widgets/hourly_weather_list_item.dart';
 import 'package:flutter/material.dart';
