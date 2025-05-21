@@ -20,7 +20,7 @@ class MapRepository {
     Weather weather = Weather.fromJson(weatherJson);
 
     final Map<String, dynamic> locationAddressJson = await _reverseGeocodingApiProvider.fetchWeatherJson(lng, lat);
-    LocationAddress locationAddress = LocationAddress.fromJson(locationAddressJson, lat, lng);
+    LocationAddress locationAddress = LocationAddress.fromJson(locationAddressJson, lat: lat, lng: lng);
 
     return (weather, locationAddress);
   }
