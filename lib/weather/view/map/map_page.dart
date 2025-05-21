@@ -20,8 +20,7 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-  late Weather _weather;
-  late LocationAddress _locationAddress;
+
   late NaverMapController _mapController;
 
   @override
@@ -50,7 +49,10 @@ class _MapPageState extends State<MapPage> {
             onPressed: () {
               Navigator.pop(
                   context,
-                  (_weather, _locationAddress)
+                  (
+                    context.read<MapCubit>().state.weather,
+                    context.read<MapCubit>().state.locationAddress
+                  )
               );
             },
           )
@@ -65,20 +67,25 @@ class _MapPageState extends State<MapPage> {
               NaverMap(
                 options: NaverMapViewOptions(
                   initialCameraPosition: NCameraPosition(
-                    target: NLatLng(_locationAddress.latitude, _locationAddress.longitude),
+                    target: NLatLng(
+                        context.read<MapCubit>().state.locationAddress.latitude,
+                        context.read<MapCubit>().state.locationAddress.longitude
+                    ),
                     zoom: 15
                   )
                 ),
                 onMapReady: (controller) async {
                   _mapController = controller;
 
-                  final lng = _locationAddress.longitude;
-                  final lat = _locationAddress.latitude;
+                  final weather = context.read<MapCubit>().state.weather;
+                  final locationAddress = context.read<MapCubit>().state.locationAddress;
+                  final lng = locationAddress.longitude;
+                  final lat = locationAddress.latitude;
 
                   final locationWeatherMarker = await NOverlayImage.fromWidget(
                       widget: LocationWeatherMarker(
-                          weather: _weather.current,
-                          locationAddress: _locationAddress
+                          weather: weather.current,
+                          locationAddress: locationAddress
                       ),
                       size: const Size(130, 140),
                       context: context);
@@ -126,7 +133,6 @@ class _MapPageState extends State<MapPage> {
                     _mapController.updateCamera(cameraUpdate);
                   },
                 ),
-
                 Positioned(
                   left: 12,
                   right: 12,
