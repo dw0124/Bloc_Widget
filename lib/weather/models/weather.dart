@@ -65,6 +65,14 @@ class Weather {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'current': current.toJson(),
+      'hourly': hourly.map((weather) => weather.toJson()).toList(),
+      'daily': daily.map((weather) => weather.toJson()).toList(),
+    };
+  }
+
   Weather({
     required this.current,
     required this.hourly,

@@ -45,6 +45,22 @@ class LocationAddress {
     }
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'lat': latitude,
+      'lng': longitude,
+      'results': [
+        {
+          'region': {
+            'area1': { 'name': area1 },
+            'area2': { 'name': area2 },
+            'area3': { 'name': area3 },
+          }
+        }
+      ]
+    };
+  }
+
   LocationAddress copyWith({
     String? area1,
     String? area2,
