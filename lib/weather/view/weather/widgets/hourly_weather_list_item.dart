@@ -5,14 +5,15 @@ import 'package:flutter/material.dart';
 class HourlyWeatherListItem extends StatelessWidget {
   final HourlyWeather hourlyWeather;
 
-  const HourlyWeatherListItem({super.key, required this.hourlyWeather});
+  final Color textColor;
+
+  const HourlyWeatherListItem({super.key, required this.hourlyWeather, this.textColor = Colors.white});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 64,
       child: DefaultTextStyle(
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(color: textColor),
         child: Column(
           //spacing: 9,
           children: [

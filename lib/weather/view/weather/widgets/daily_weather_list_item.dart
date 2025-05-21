@@ -19,7 +19,7 @@ class DailyWeatherListItem extends StatelessWidget {
           spacing: 24,
           children: [
             SizedBox(
-              width: 30,
+              width: 34,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
