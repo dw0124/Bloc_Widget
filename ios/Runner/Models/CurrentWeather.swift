@@ -34,7 +34,7 @@ struct CurrentWeather {
         )
     }
     
-    static let dummy = CurrentWeather.fromEntitiy(entity: CurrentWeatherEntity.dummy)
+    static let dummy = CurrentWeather.fromEntity(entity: CurrentWeatherEntity.dummy)
 }
 
 struct CurrentWeatherEntity: Codable {
