@@ -52,7 +52,7 @@ struct CurrentWeatherEntity: Codable {
     let windSpeed: Double
     let windDeg: Int
     let windGust: Double?
-    let weather: [WeatherEntity]
+    let weather: [WeatherInfoEntity]
 
     enum CodingKeys: String, CodingKey {
         case dt, sunrise, sunset, temp
@@ -82,7 +82,7 @@ struct CurrentWeatherEntity: Codable {
         windDeg: 280,
         windGust: 1.56,
         weather: [
-            WeatherEntity(
+            WeatherInfoEntity(
                 id: 804,
                 main: "Clouds",
                 description: "온흐림",
@@ -91,11 +91,4 @@ struct CurrentWeatherEntity: Codable {
         ]
     )
 
-}
-
-struct WeatherEntity: Codable {
-    let id: Int
-    let main: String
-    let description: String
-    let icon: String
 }
