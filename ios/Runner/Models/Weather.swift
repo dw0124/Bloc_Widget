@@ -28,12 +28,12 @@ struct Weather {
                 let timeInterval = TimeInterval(entity.dt)
                 let hourlyDt = Date(timeIntervalSince1970: timeInterval)
 
-                let sunrise = daily[0].sunrise;
-                let sunset = daily[0].sunset;
-                let sunriseNext = daily[1].sunrise;
-                let sunsetNext = daily[1].sunset;
+                let sunrise = daily[0].sunrise
+                let sunset = daily[0].sunset
+                let sunriseNext = daily[1].sunrise
+                let sunsetNext = daily[1].sunset
 
-                var isNight: Bool = false;
+                var isNight: Bool = false
 
                 if hourlyDt < sunrise {
                     isNight = true
