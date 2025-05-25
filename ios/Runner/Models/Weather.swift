@@ -16,12 +16,10 @@ struct Weather {
         
         let current = CurrentWeather.fromEntity(entity: entity.current)
 
-        let dailyEntity = entity.daily
         let daily = entity.daily.map { entity in
             DailyWeather.fromEntity(entity: entity)
         }
 
-        let hourlyEntity = entity.hourly
         let hourly = entity.hourly
             .prefix(24)
             .map { entity in
