@@ -9,23 +9,23 @@ import WidgetKit
 import SwiftUI
 
 struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), emoji: "😀")
+    func placeholder(in context: Context) -> WeatherEntry {
+        WeatherEntry(date: Date(), weather: Weather.dummy)
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), emoji: "😀")
+    func getSnapshot(in context: Context, completion: @escaping (WeatherEntry) -> ()) {
+        let entry = WeatherEntry(date: Date(), weather: Weather.dummy)
         completion(entry)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [SimpleEntry] = []
+        var entries: [WeatherEntry] = []
 
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
         for hourOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, emoji: "😀")
+            let entry = WeatherEntry(date: entryDate, weather: Weather.dummy)
             entries.append(entry)
         }
 
@@ -38,21 +38,21 @@ struct Provider: TimelineProvider {
 //    }
 }
 
-struct SimpleEntry: TimelineEntry {
-    let date: Date
-    let emoji: String
+struct WeatherEntry: TimelineEntry {
+    var date: Date
+    let weather: Weather
 }
 
 struct WeatherWidgetEntryView : View {
+    @Environment(\.widgetFamily) var family // Widget 크기별 표시
     var entry: Provider.Entry
 
     var body: some View {
-        VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
-
-            Text("Emoji:")
-            Text(entry.emoji)
+        switch self.family {
+        case .systemLarge:
+            WeatherWidgetLarge(weather: entry.weather)
+        default:
+            Text("default")
         }
     }
 }
@@ -76,9 +76,8 @@ struct WeatherWidget: Widget {
     }
 }
 
-#Preview(as: .systemSmall) {
+#Preview(as: .systemLarge) {
     WeatherWidget()
 } timeline: {
-    SimpleEntry(date: .now, emoji: "😀")
-    SimpleEntry(date: .now, emoji: "🤩")
+    WeatherEntry(date: .now, weather: Weather.dummy)
 }
