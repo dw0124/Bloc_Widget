@@ -5,6 +5,7 @@
 //  Created by 김두원 on 5/26/25.
 //
 
+import WidgetKit
 import SwiftUI
 
 struct WeatherWidgetLarge: View {
@@ -72,6 +73,8 @@ struct WeatherWidgetLarge: View {
     }
 }
 
-#Preview {
-    WeatherWidgetLarge(weather: Weather.dummy)
+#Preview(as: .systemLarge) {
+    WeatherWidget()
+} timeline: {
+    WeatherEntry(date: .now, weather: Weather.dummy)
 }

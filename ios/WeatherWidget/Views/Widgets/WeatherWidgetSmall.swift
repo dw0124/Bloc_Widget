@@ -5,6 +5,7 @@
 //  Created by 김두원 on 5/26/25.
 //
 
+import WidgetKit
 import SwiftUI
 
 struct WeatherWidgetSmall: View {
@@ -35,9 +36,12 @@ struct WeatherWidgetSmall: View {
                     .font(Font.system(size: 14, weight: .semibold))
             }
         }
+        .padding(EdgeInsets(top: 0, leading: -24, bottom: 0, trailing: 0))
     }
 }
 
-#Preview {
-    WeatherWidgetSmall(weather: Weather.dummy)
+#Preview(as: .systemSmall) {
+    WeatherWidget()
+} timeline: {
+    WeatherEntry(date: .now, weather: Weather.dummy)
 }
