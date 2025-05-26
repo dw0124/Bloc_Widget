@@ -13,7 +13,7 @@ struct HourlyWeather {
     var dateTimeString: String
     var temperature: Int
     var weatherCondition: WeatherCondition
-    var pop: Double
+    var pop: Int
     
     static func fromEntity(entity: HourlyWeatherEntity, isNight: Bool) -> HourlyWeather {
         let timeInterval = TimeInterval(entity.dt)
@@ -29,7 +29,7 @@ struct HourlyWeather {
         let weatherCode = entity.weather.first?.id ?? 0
         let weatherCondition = WeatherCondition.fromWeatherCode(code: weatherCode)
         
-        let pop = entity.pop
+        let pop = Int(entity.pop * 100)
 
         return HourlyWeather(
             epochTime: epochTime,
