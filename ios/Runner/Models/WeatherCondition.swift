@@ -56,24 +56,24 @@ extension WeatherCondition {
     /// 날씨 이미지 경로
     func imageAsset(isNight: Bool = false) -> String {
         if self == .clear && isNight {
-            return "assets/weather_icon/moon.fill.png"
+            return "assets/weather_icon/moon.fill"
         } else if self == .clear && !isNight {
-            return "assets/weather_icon/clear.png"
+            return "assets/weather_icon/clear"
         }
         
         switch self {
         case .clouds:
-            return "clouds.png"
+            return "clouds"
         case .rain, .drizzle:
-            return "rain.png"
+            return "rain"
         case .snow:
-            return "snow.png"
+            return "snow"
         case .thunderstorm:
-            return "thunderstorm.png"
+            return "thunderstorm"
         case .atmosphere:
-            return "atmosphere.png"
+            return "atmosphere"
         default:
-            return "unknown.png"
+            return "unknown"
         }
     }
     
