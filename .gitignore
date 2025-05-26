@@ -1,5 +1,7 @@
 *.env
 
+ios/APIKeys.xcconfig
+
 # Miscellaneous
 *.class
 *.log
