@@ -49,6 +49,10 @@ struct WeatherWidgetEntryView : View {
 
     var body: some View {
         switch self.family {
+        case .systemSmall:
+            WeatherWidgetSmall(weather: entry.weather)
+        case .systemMedium:
+            WeatherWidgetMedium(weather: entry.weather)
         case .systemLarge:
             WeatherWidgetLarge(weather: entry.weather)
         default:
@@ -77,6 +81,18 @@ struct WeatherWidget: Widget {
 }
 
 #Preview(as: .systemLarge) {
+    WeatherWidget()
+} timeline: {
+    WeatherEntry(date: .now, weather: Weather.dummy)
+}
+
+#Preview(as: .systemMedium) {
+    WeatherWidget()
+} timeline: {
+    WeatherEntry(date: .now, weather: Weather.dummy)
+}
+
+#Preview(as: .systemSmall) {
     WeatherWidget()
 } timeline: {
     WeatherEntry(date: .now, weather: Weather.dummy)
