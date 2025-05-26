@@ -54,6 +54,8 @@ struct Weather {
             daily: daily
         )
     }
+    
+    static let dummy = Weather.fromEntity(entity: WeatherEntity.dummy)
 }
 
 struct WeatherEntity: Codable {
