@@ -56,9 +56,9 @@ extension WeatherCondition {
     /// 날씨 이미지 경로
     func imageAsset(isNight: Bool = false) -> String {
         if self == .clear && isNight {
-            return "assets/weather_icon/moon.fill"
+            return "moon.fill"
         } else if self == .clear && !isNight {
-            return "assets/weather_icon/clear"
+            return "clear"
         }
         
         switch self {
