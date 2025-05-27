@@ -11,11 +11,12 @@ import SwiftUI
 struct WeatherWidgetSmall: View {
     
     let weather: Weather
+    let locationAddress: LocationAddress
     
     var body: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
-                Text("서울특별시")
+                Text("\(locationAddress.area3)")
                     .font(.system(size: 20))
                 
                 Text("\(weather.current.temperature)º")
@@ -36,12 +37,12 @@ struct WeatherWidgetSmall: View {
                     .font(Font.system(size: 14, weight: .semibold))
             }
         }
-        .padding(EdgeInsets(top: 0, leading: -24, bottom: 0, trailing: 0))
+        .padding(EdgeInsets(top: 8, leading: -24, bottom: 8, trailing: 0))
     }
 }
 
 #Preview(as: .systemSmall) {
     WeatherWidget()
 } timeline: {
-    WeatherEntry(date: .now, weather: Weather.dummy)
+    WeatherEntry(date: .now, weather: Weather.dummy, locationAddress: LocationAddress.dummy)
 }

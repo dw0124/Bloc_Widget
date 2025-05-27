@@ -11,6 +11,7 @@ import SwiftUI
 struct WeatherWidgetLarge: View {
     
     let weather: Weather
+    let locationAddress: LocationAddress
     
     var weeklyHighTemp: Int {
         return weather.daily.map { $0.maxTemperature }.max() ?? 0
@@ -24,7 +25,7 @@ struct WeatherWidgetLarge: View {
         VStack(spacing: 8) {
             HStack {
                 VStack(alignment: .leading) {
-                    Text("서울특별시")
+                    Text("\(locationAddress.area1) \(locationAddress.area3)")
                         .font(.system(size: 20))
                     
                     Text("\(weather.current.temperature)º")
@@ -50,7 +51,7 @@ struct WeatherWidgetLarge: View {
                 Divider()
                 
                 HStack {
-                    ForEach(weather.hourly.prefix(6), id: \.self.epochTime) { weather in
+                    ForEach(weather.hourly.prefix(6), id: \.uuid) { weather in
                         HourlyWeatherItem(weather: weather)
                             .frame(maxWidth: .infinity)
                     }
@@ -59,7 +60,7 @@ struct WeatherWidgetLarge: View {
                 Divider()
             }
             
-            ForEach(weather.daily.prefix(5), id: \.self.epochTime) { weather in
+            ForEach(weather.daily.prefix(5), id: \.uuid) { weather in
                 DailyWeatherItem(
                     weather: weather,
                     weeklyHighTemp: weeklyHighTemp,
@@ -76,5 +77,5 @@ struct WeatherWidgetLarge: View {
 #Preview(as: .systemLarge) {
     WeatherWidget()
 } timeline: {
-    WeatherEntry(date: .now, weather: Weather.dummy)
+    WeatherEntry(date: .now, weather: Weather.dummy, locationAddress: LocationAddress.dummy)
 }

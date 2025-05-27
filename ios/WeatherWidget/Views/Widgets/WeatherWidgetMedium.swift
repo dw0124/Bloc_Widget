@@ -11,12 +11,13 @@ import SwiftUI
 struct WeatherWidgetMedium: View {
     
     let weather: Weather
+    let locationAddress: LocationAddress
     
     var body: some View {
         VStack(spacing: 8) {
             HStack {
                 VStack(alignment: .leading) {
-                    Text("서울특별시")
+                    Text("\(locationAddress.area1) \(locationAddress.area3)")
                         .font(.system(size: 20))
                     
                     Text("\(weather.current.temperature)º")
@@ -39,7 +40,7 @@ struct WeatherWidgetMedium: View {
             }
             
             HStack {
-                ForEach(weather.hourly.prefix(6), id: \.self.epochTime) { weather in
+                ForEach(weather.hourly.prefix(6), id: \.uuid) { weather in
                     HourlyWeatherItem(weather: weather)
                         .frame(maxWidth: .infinity)
                 }
@@ -51,5 +52,5 @@ struct WeatherWidgetMedium: View {
 #Preview(as: .systemMedium) {
     WeatherWidget()
 } timeline: {
-    WeatherEntry(date: .now, weather: Weather.dummy)
+    WeatherEntry(date: .now, weather: Weather.dummy, locationAddress: LocationAddress.dummy)
 }

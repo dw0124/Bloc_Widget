@@ -10,27 +10,30 @@ import SwiftUI
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> WeatherEntry {
-        WeatherEntry(date: Date(), weather: Weather.dummy)
+        WeatherEntry(date: Date(), weather: Weather.dummy, locationAddress: LocationAddress.dummy)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (WeatherEntry) -> ()) {
-        let entry = WeatherEntry(date: Date(), weather: Weather.dummy)
+        let entry = WeatherEntry(date: Date(), weather: Weather.dummy, locationAddress: LocationAddress.dummy)
         completion(entry)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [WeatherEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = WeatherEntry(date: entryDate, weather: Weather.dummy)
-            entries.append(entry)
+        
+        let lng = 126.978388
+        let lat = 37.56661
+        
+        Task {
+            let (weather, locationAddress) = try await WeatherService.shared.fetchWeather(lat: lat, lng: lng)
+            
+            let entry = WeatherEntry(date: Date(), weather: weather, locationAddress: locationAddress)
+            
+            let nextUpdate = Calendar.current.date(byAdding: DateComponents(minute: 30), to: Date())!
+            
+            let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
+            
+            completion(timeline)
         }
-
-        let timeline = Timeline(entries: entries, policy: .atEnd)
-        completion(timeline)
     }
 
 //    func relevances() async -> WidgetRelevances<Void> {
@@ -40,7 +43,8 @@ struct Provider: TimelineProvider {
 
 struct WeatherEntry: TimelineEntry {
     var date: Date
-    let weather: Weather
+    var weather: Weather
+    var locationAddress: LocationAddress
 }
 
 struct WeatherWidgetEntryView : View {
@@ -50,11 +54,11 @@ struct WeatherWidgetEntryView : View {
     var body: some View {
         switch self.family {
         case .systemSmall:
-            WeatherWidgetSmall(weather: entry.weather)
+            WeatherWidgetSmall(weather: entry.weather, locationAddress: entry.locationAddress)
         case .systemMedium:
-            WeatherWidgetMedium(weather: entry.weather)
+            WeatherWidgetMedium(weather: entry.weather, locationAddress: entry.locationAddress)
         case .systemLarge:
-            WeatherWidgetLarge(weather: entry.weather)
+            WeatherWidgetLarge(weather: entry.weather, locationAddress: entry.locationAddress)
         default:
             Text("default")
         }
@@ -83,17 +87,17 @@ struct WeatherWidget: Widget {
 #Preview(as: .systemLarge) {
     WeatherWidget()
 } timeline: {
-    WeatherEntry(date: .now, weather: Weather.dummy)
+    WeatherEntry(date: .now, weather: Weather.dummy, locationAddress: LocationAddress.dummy)
 }
 
 #Preview(as: .systemMedium) {
     WeatherWidget()
 } timeline: {
-    WeatherEntry(date: .now, weather: Weather.dummy)
+    WeatherEntry(date: .now, weather: Weather.dummy, locationAddress: LocationAddress.dummy)
 }
 
 #Preview(as: .systemSmall) {
     WeatherWidget()
 } timeline: {
-    WeatherEntry(date: .now, weather: Weather.dummy)
+    WeatherEntry(date: .now, weather: Weather.dummy, locationAddress: LocationAddress.dummy)
 }
