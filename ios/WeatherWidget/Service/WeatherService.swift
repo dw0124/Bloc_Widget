@@ -8,6 +8,13 @@
 import Foundation
 
 class WeatherService {
+    static let shared = WeatherService()
+    
+    private init() {
+        reverseGeocodingAPIClient = ReverseGeocodingAPIClient()
+        weatherAPIClient = WeatherAPIClient()
+    }
+    
     let reverseGeocodingAPIClient: ReverseGeocodingAPIClient
     let weatherAPIClient: WeatherAPIClient
     
