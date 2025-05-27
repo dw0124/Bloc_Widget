@@ -29,6 +29,12 @@ struct LocationAddress {
             longitude: longitude
         )
     }
+    
+    static var dummy: LocationAddress {
+        let lat = 37.56661
+        let lng = 126.978388
+        return LocationAddress.fromEntity(entity: LocationAddressEntity.dummy, lat: lat, lng: lng)
+    }
 }
 
 struct LocationAddressEntity: Codable {
@@ -74,5 +80,24 @@ struct LocationAddressEntity: Codable {
         let crs: String
         let x: Double
         let y: Double
+    }
+    
+    static var dummy: LocationAddressEntity {
+        LocationAddressEntity(
+            status: Status(code: 0, name: "ok", message: "done"),
+            results: [
+                Result(
+                    name: "admcode",
+                    code: Code(id: "1114055000", type: "A", mappingId: "09140550"),
+                    region: Region(
+                        area0: Area(name: "kr", coords: Coords(center: Center(crs: "", x: 0.0, y: 0.0))),
+                        area1: Area(name: "서울특별시", coords: Coords(center: Center(crs: "EPSG:4326", x: 126.978388, y: 37.56661))),
+                        area2: Area(name: "중구", coords: Coords(center: Center(crs: "EPSG:4326", x: 126.997602, y: 37.563843))),
+                        area3: Area(name: "명동", coords: Coords(center: Center(crs: "EPSG:4326", x: 126.985229, y: 37.558251))),
+                        area4: Area(name: "", coords: Coords(center: Center(crs: "", x: 0.0, y: 0.0)))
+                    )
+                )
+            ]
+        )
     }
 }
