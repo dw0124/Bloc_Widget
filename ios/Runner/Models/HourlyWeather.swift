@@ -8,6 +8,7 @@
 import Foundation
 
 struct HourlyWeather {
+    var uuid: UUID
     var epochTime: Date
     var isNight: Bool
     var dateTimeString: String
@@ -32,6 +33,7 @@ struct HourlyWeather {
         let pop = Int(entity.pop * 100)
 
         return HourlyWeather(
+            uuid: UUID(),
             epochTime: epochTime,
             isNight: isNight,
             dateTimeString: dateTimeString,

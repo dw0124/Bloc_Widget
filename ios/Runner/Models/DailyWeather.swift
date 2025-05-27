@@ -8,6 +8,7 @@
 import Foundation
 
 struct DailyWeather {
+    var uuid: UUID
     var epochTime: Date
     var formattedTime: String
     var weekdayString: String
@@ -45,6 +46,7 @@ struct DailyWeather {
         let pop = Int(entity.pop * 100)
 
         return DailyWeather(
+            uuid: UUID(),
             epochTime: epochTime,
             formattedTime: formattedTime,
             weekdayString: weekdayString,
