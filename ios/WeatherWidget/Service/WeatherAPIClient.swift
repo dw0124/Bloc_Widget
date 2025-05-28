@@ -25,7 +25,7 @@ class WeatherAPIClient {
         components.path = "/data/3.0/onecall"
         components.queryItems = [
             URLQueryItem(name: "lat", value: "\(lat)"),
-            URLQueryItem(name: "lng", value: "\(lng)"),
+            URLQueryItem(name: "lon", value: "\(lng)"),
             URLQueryItem(name: "units", value: "metric"),
             URLQueryItem(name: "lang", value: "kr"),
             URLQueryItem(name: "appid", value: apiKey)
