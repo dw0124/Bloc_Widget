@@ -7,5 +7,11 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.widgetkit-extension</string>
 	</dict>
+    <key>WEATHER_API_KEY</key>
+    <string>$(WEATHER_API_KEY)</string>
+    <key>NAVER_CLIENT_ID</key>
+    <string>$(NAVER_CLIENT_ID)</string>
+    <key>NAVER_CLIENT_SECRET</key>
+    <string>$(NAVER_CLIENT_SECRET)</string>
 </dict>
 </plist>
