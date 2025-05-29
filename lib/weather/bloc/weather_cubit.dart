@@ -6,6 +6,7 @@ import 'package:bloc_widget/weather/models/location_address.dart';
 import 'package:bloc_widget/weather/models/weather.dart';
 import 'package:bloc_widget/weather/repository/map_repository.dart';
 import 'package:bloc_widget/weather/repository/weather_repository.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class WeatherCubit extends Cubit<WeatherState> {
@@ -64,6 +65,8 @@ class WeatherCubit extends Cubit<WeatherState> {
     emit(weatherState);
 
     _saveWeatherState();
+
+    _sendWeatherState();
   }
 
   void _saveWeatherState() async {
@@ -95,5 +98,19 @@ class WeatherCubit extends Cubit<WeatherState> {
     }
 
     return false;
+  }
+
+  void _sendWeatherState() async {
+    final platform = MethodChannel('com.example.bloc_widget/sendWeatherState');
+
+    final json = state.toJson();
+
+    try {
+      final result = await platform.invokeMethod('sendWeatherState', {"weatherState": json});
+
+      print(result);
+    } on PlatformException catch (e) {
+      print("Failed to doSomething: '${e.message}'.");
+    }
   }
 }
