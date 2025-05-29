@@ -45,6 +45,14 @@ struct WeatherEntry: TimelineEntry {
     var date: Date
     var weather: Weather
     var locationAddress: LocationAddress
+    
+    static var dummy: WeatherEntry {
+        WeatherEntry(
+            date: Date(),
+            weather: Weather.dummy,
+            locationAddress: LocationAddress.dummy
+        )
+    }
 }
 
 struct WeatherWidgetEntryView : View {
@@ -59,6 +67,10 @@ struct WeatherWidgetEntryView : View {
             WeatherWidgetMedium(weather: entry.weather, locationAddress: entry.locationAddress)
         case .systemLarge:
             WeatherWidgetLarge(weather: entry.weather, locationAddress: entry.locationAddress)
+        case .accessoryRectangular:
+            WeatherWidgetRectangular(entry: entry)
+        case .accessoryCircular:
+            WeatherWidgetCircular(entry: entry)
         default:
             Text("default")
         }
@@ -81,6 +93,13 @@ struct WeatherWidget: Widget {
         }
         .configurationDisplayName("My Widget")
         .description("This is an example widget.")
+        .supportedFamilies([
+            .systemSmall,
+            .systemMedium,
+            .systemLarge,
+            .accessoryRectangular,
+            .accessoryCircular
+        ])
     }
 }
 
@@ -100,4 +119,16 @@ struct WeatherWidget: Widget {
     WeatherWidget()
 } timeline: {
     WeatherEntry(date: .now, weather: Weather.dummy, locationAddress: LocationAddress.dummy)
+}
+
+#Preview(as: .accessoryRectangular) {
+    WeatherWidget()
+} timeline: {
+    WeatherEntry.dummy
+}
+
+#Preview(as: .accessoryCircular) {
+    WeatherWidget()
+} timeline: {
+    WeatherEntry.dummy
 }
