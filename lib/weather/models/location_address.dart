@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 class LocationAddress {
+  final String? jsonString;
+
   final String area1;     // 시
   final String area2;     // 구
   final String area3;     // 동
@@ -6,6 +10,7 @@ class LocationAddress {
   final double longitude;
 
   LocationAddress({
+    required this.jsonString,
     required this.area1,
     required this.area2,
     required this.area3,
@@ -29,7 +34,10 @@ class LocationAddress {
       final latitude = lat ?? json['lat'];
       final longitude = lng ?? json['lng'];
 
+      final jsonString = jsonEncode(json);
+
       return LocationAddress(
+        jsonString: jsonString,
         area1: area1,
         area2: area2,
         area3: area3,
@@ -62,6 +70,7 @@ class LocationAddress {
   }
 
   LocationAddress copyWith({
+    String? jsonString,
     String? area1,
     String? area2,
     String? area3,
@@ -69,6 +78,7 @@ class LocationAddress {
     double? longitude,
   }) {
     return LocationAddress(
+      jsonString: jsonString ?? this.jsonString,
       area1: area1 ?? this.area1,
       area2: area2 ?? this.area2,
       area3: area3 ?? this.area3,
@@ -82,6 +92,7 @@ class LocationAddress {
 
   /// ✅ empty 생성자
   static LocationAddress get empty => LocationAddress(
+    jsonString: null,
     area1: '서울특별시',
     area2: '',
     area3: '',

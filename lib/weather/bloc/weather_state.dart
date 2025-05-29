@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bloc_widget/weather/models/location_address.dart';
 import 'package:equatable/equatable.dart';
 import 'package:bloc_widget/weather/models/weather.dart';
@@ -37,17 +39,22 @@ class WeatherState extends Equatable {
     final lat = json['lat'];
     final lng = json['lng'];
 
+    final locationJson = jsonDecode(json['locationAddress']);
+    final weatherJson = jsonDecode(json['weather']);
+
     return WeatherState(
-      locationAddress: LocationAddress.fromJson(json['locationAddress'], lat: lat, lng: lng),
-      weather: Weather.fromJson(json['weather']),
+      locationAddress: LocationAddress.fromJson(locationJson, lat: lat, lng: lng),
+      weather: Weather.fromJson(weatherJson),
       weatherStatus: WeatherStatus.success
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'locationAddress': locationAddress.toJson(),
-      'weather': weather.toJson()
+      'lat': locationAddress.latitude,
+      'lng': locationAddress.longitude,
+      'locationAddress': locationAddress.jsonString,
+      'weather': weather.jsonString
     };
   }
 

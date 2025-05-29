@@ -16,7 +16,7 @@ class WeatherCubit extends Cubit<WeatherState> {
   final WeatherRepository _weatherRepository;
 
   Future<void> _init() async {
-    final loaded = await _loadSavedWeather();
+    final loaded = await _loadSavedWeatherState();
 
     if (loaded) {
       final lng = state.locationAddress.longitude;
@@ -45,7 +45,7 @@ class WeatherCubit extends Cubit<WeatherState> {
 
       emit(weatherState);
 
-      _saveWeather();
+      _saveWeatherState();
     } on Exception {
       emit(
         state.copyWith(
@@ -63,10 +63,10 @@ class WeatherCubit extends Cubit<WeatherState> {
 
     emit(weatherState);
 
-    _saveWeather();
+    _saveWeatherState();
   }
 
-  void _saveWeather() async {
+  void _saveWeatherState() async {
     try {
       final json = state.toJson();
       final String data = jsonEncode(json);
@@ -78,7 +78,7 @@ class WeatherCubit extends Cubit<WeatherState> {
     }
   }
 
-  Future<bool> _loadSavedWeather() async {
+  Future<bool> _loadSavedWeatherState() async {
     final prefs = await SharedPreferences.getInstance();
     final jsonString = prefs.getString('weatherState');
 

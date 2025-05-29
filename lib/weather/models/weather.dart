@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bloc_widget/weather/models/current_weather.dart';
 import 'package:bloc_widget/weather/models/daily_weather.dart';
 import 'package:bloc_widget/weather/models/hourly_weather.dart';
@@ -12,6 +14,8 @@ extension TemperatureUnitsX on TemperatureUnits {
 }
 
 class Weather {
+  final String? jsonString;
+
   final CurrentWeather current;
   final List<HourlyWeather> hourly;
   final List<DailyWeather> daily;
@@ -57,8 +61,10 @@ class Weather {
       );
     }).toList();
 
+    final String jsonString = jsonEncode(json);
 
     return Weather(
+        jsonString: jsonString,
         current: current,
         hourly: hourly,
         daily: daily
@@ -74,12 +80,14 @@ class Weather {
   }
 
   Weather({
+    required this.jsonString,
     required this.current,
     required this.hourly,
     required this.daily
   });
 
   static final empty = Weather(
+      jsonString: null,
       current: CurrentWeather.empty,
       hourly: [
         HourlyWeather.empty,
