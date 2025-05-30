@@ -9,16 +9,20 @@ import SwiftUI
 
 struct HourlyWeatherItem: View {
     let weather: HourlyWeather
-    
+
     var body: some View {
         VStack(spacing: 4) {
             // 시간 표시
             Text(weather.dateTimeString)
-                .font(Font.system(size: 11, weight: .semibold))
-                .foregroundStyle(.black)
+                .font(Font.system(size: 10, weight: .semibold))
+                .foregroundStyle(Color.black.opacity(0.7))
             
             // 날씨 아이콘
-            Image(weather.weatherCondition.imageAsset())
+            Image(
+                weather.weatherCondition.imageAsset(
+                    isNight: weather.isNight
+                )
+            )
                 .resizable()
                 .scaledToFit()
                 .frame(width: 24, height: 24)

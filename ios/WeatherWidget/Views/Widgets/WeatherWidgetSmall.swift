@@ -27,7 +27,11 @@ struct WeatherWidgetSmall: View {
             
             
             VStack(alignment: .leading) {
-                Image(weather.current.weatherCondition.imageAsset())
+                Image(
+                    weather.current.weatherCondition.imageAsset(
+                        isNight: weather.current.isNight
+                    )
+                )
                     .resizable()
                     .scaledToFit()
                     .frame(width: 24, height: 24)
