@@ -1,4 +1,5 @@
 import Flutter
+import WidgetKit
 import UIKit
 
 @main
@@ -46,7 +47,14 @@ import UIKit
               let weatherEntity = try JSONDecoder().decode(WeatherEntity.self, from: weatherData)
               let weather = Weather.fromEntity(entity: weatherEntity)
               
+              guard let userDefaults = UserDefaults(suiteName: "group.com.example.blocWidget") else {
+                  result(FlutterError(code: "INVALID SuitName", message: "UserDefaults unwrapping failed", details: nil))
+                  return
+              }
+              userDefaults.set(lat, forKey: "lat")
+              userDefaults.set(lng, forKey: "lng")
               
+              WidgetCenter.shared.reloadAllTimelines()
               
               result("Success")
           } catch {
