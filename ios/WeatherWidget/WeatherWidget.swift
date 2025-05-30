@@ -9,6 +9,8 @@ import WidgetKit
 import SwiftUI
 
 struct Provider: TimelineProvider {
+    let userDefaults = UserDefaults(suiteName: "group.com.example.blocWidget")
+    
     func placeholder(in context: Context) -> WeatherEntry {
         WeatherEntry(date: Date(), weather: Weather.dummy, locationAddress: LocationAddress.dummy)
     }
@@ -20,8 +22,8 @@ struct Provider: TimelineProvider {
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         
-        let lng = 126.978388
-        let lat = 37.56661
+        let lng = userDefaults?.object(forKey: "lng") as? Double ?? 126.978388
+        let lat = userDefaults?.object(forKey: "lat") as? Double ?? 37.56661
         
         Task {
             let (weather, locationAddress) = try await WeatherService.shared.fetchWeather(lat: lat, lng: lng)
