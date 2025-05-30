@@ -15,4 +15,5 @@ SharedPreferences를 통해 로컬 저장소에 위치와 날씨 정보를 저�
 
 ### iOS 위젯 화면
 
-<img width="791" alt="스크린샷 2025-05-28 오후 5 59 03" src="https://github.com/user-attachments/assets/e2d1fb14-075f-40e6-b2eb-b8cafea22749" />
+<img width="789" alt="image" src="https://github.com/user-attachments/assets/3fda5865-4fab-4b4f-9e03-4b17b34c57d5" />
+
